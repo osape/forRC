@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class OutputStreamClient {
 	private final static int SERVER_PORT = 65333;
-	private final static String SERVER_ADDRESS = "localhost";
+	private final static String SERVER_ADDRESS = "osamu-faith";
 	public static void main(String[] args) {
 		Socket socket = null;
 		OutputStream os = null;
