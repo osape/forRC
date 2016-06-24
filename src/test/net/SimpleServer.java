@@ -17,7 +17,7 @@ public class SimpleServer {
 			is = socket.getInputStream();
 			byte[] buf = new byte[100];
 			is.read(buf);
-			System.out.println(buf[0]);
+			System.out.println("クライアントからのデータ : " + buf[0]);
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
