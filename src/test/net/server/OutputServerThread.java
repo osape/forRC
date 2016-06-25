@@ -1,8 +1,6 @@
 package test.net.server;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -24,6 +22,11 @@ public class OutputServerThread extends Thread {
 	private DataTransfer dt;
 
 	/**
+	 * クライアント数
+	 */
+	private int clients = 0;
+
+	/**
 	 * サーバーポートを設定する
 	 * @param sERVER_PORT サーバーポート
 	 */
@@ -40,40 +43,18 @@ public class OutputServerThread extends Thread {
 	public void run() {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
-		InputStream is = null;
-		OutputStream os = null;
 		try {
 			serverSocket = new ServerSocket(SERVER_PORT);
-			socket = serverSocket.accept();
-			os = socket.getOutputStream();
 
-			for(int i = 0;i < 10;i++) {
-				byte[] buf = dt.get();
-				os.write(buf);
-				System.out.println("クライアントにデータを送信 : " + buf[0]);
-				sleep(5000);
+			while(true) {
+				socket = serverSocket.accept();
+				clients++;
+				OutputServerChildThread osc = new OutputServerChildThread(socket, dt,this,socket.getLocalAddress().getHostName());
+				osc.start();
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
-		} catch(InterruptedException e) {
-			e.printStackTrace();
 		} finally {
-			if(is != null) {
-				try {
-					is.close();
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if(os != null) {
-				try {
-					os.close();
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-			}
-
 			if(socket != null) {
 				try {
 					socket.close();
@@ -82,6 +63,14 @@ public class OutputServerThread extends Thread {
 				}
 			}
 		}
+	}
+
+	public int getClients() {
+		return clients;
+	}
+
+	public void setClients(int clients) {
+		this.clients = clients;
 	}
 
 }

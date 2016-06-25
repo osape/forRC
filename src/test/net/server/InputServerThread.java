@@ -2,7 +2,6 @@ package test.net.server;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -51,17 +50,12 @@ public class InputServerThread extends Thread {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
 		InputStream is = null;
-		OutputStream os = null;
 		try {
 			serverSocket = new ServerSocket(SERVER_PORT);
-
-			for(int i = 0;i < 10;i++) {
+			while(true) {
 				socket = serverSocket.accept();
-				is = socket.getInputStream();
-				byte[] buf = new byte[100];
-				is.read(buf);
-				System.out.println("クライアントからのデータ : " + buf[0]);
-				dt.put(buf);
+				InputServerChildThread isc = new InputServerChildThread(socket, dt);
+				isc.start();
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -73,15 +67,6 @@ public class InputServerThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-
-			if(os != null) {
-				try {
-					os.close();
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-			}
-
 			if(socket != null) {
 				try {
 					socket.close();

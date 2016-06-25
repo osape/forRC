@@ -6,35 +6,36 @@ public class DataTransfer {
 	 */
 	private byte[] data;
 
-	synchronized public void put(byte[] data) {
-		if(this.data != null) {
-			try {
-				System.out.println("putをブロック");
-				wait();
-				System.out.println("putのロックを解除");
-			} catch(InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		this.data = data;
-		notifyAll();
-		System.out.println("putのnotifyAll");
+	/**
+	 * データ受信オブジェクト
+	 */
+	private DataReceive receive;
+
+	/**
+	 * データ送信オブジェクト
+	 */
+	private DataSend send;
+
+	/**
+	 * 送受信オブジェクトの初期化
+	 */
+	public DataTransfer() {
+		receive = new DataReceive();
+		send = new DataSend();
+		receive.setSend(send);
+		send.setReceive(receive);
 	}
 
-	synchronized public byte[] get() {
-		if(data == null) {
-			try {
-				System.out.println("getをブロック");
-				wait();
-				System.out.println("getのロックを解除");
-			} catch(InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		byte[] result = data;
-		data = null;
-		notifyAll();
-		System.out.println("getのnotifyAll");
-		return result;
+	/**
+	 *
+	 * @param data
+	 */
+
+	public void put(byte[] data) {
+		receive.receive(data);
+	}
+
+	public byte[] get(int clients) {
+		return send.get(clients);
 	}
 }
