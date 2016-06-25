@@ -45,7 +45,7 @@ public class OutputServerThread extends Thread {
 				byte[] buf = new byte[100];
 				os.write(buf);
 				System.out.println("クライアントにデータを送信 : " + buf[0]);
-				sleep(1000);
+				sleep(5000);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
