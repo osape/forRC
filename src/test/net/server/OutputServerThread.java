@@ -1,10 +1,12 @@
-package test.net;
+package test.net.server;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import test.net.DataTransfer;
 
 /**
  * 10回クライアントからのリクエストを受け付ける
@@ -19,12 +21,18 @@ public class OutputServerThread extends Thread {
 	private final int SERVER_PORT;
 
 	/**
+	 * データトランスファーオブジェクト
+	 */
+	private DataTransfer dt;
+
+	/**
 	 * サーバーポートを設定する
 	 * @param sERVER_PORT サーバーポート
 	 */
-	public OutputServerThread(int sERVER_PORT) {
+	public OutputServerThread(int sERVER_PORT,DataTransfer dt) {
 		super();
 		SERVER_PORT = sERVER_PORT;
+		this.dt = dt;
 	}
 
 	/**
@@ -42,7 +50,7 @@ public class OutputServerThread extends Thread {
 			os = socket.getOutputStream();
 
 			for(int i = 0;i < 10;i++) {
-				byte[] buf = new byte[100];
+				byte[] buf = dt.get();
 				os.write(buf);
 				System.out.println("クライアントにデータを送信 : " + buf[0]);
 				sleep(5000);

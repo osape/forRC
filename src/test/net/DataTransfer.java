@@ -4,9 +4,9 @@ public class DataTransfer {
 	/**
 	 * データを格納
 	 */
-	private int[] data;
+	private byte[] data;
 
-	synchronized public void put(int[] data) {
+	synchronized public void put(byte[] data) {
 		if(data != null) {
 			try {
 				wait();
@@ -17,5 +17,19 @@ public class DataTransfer {
 			this.data = data;
 			notifyAll();
 		}
+	}
+
+	synchronized public byte[] get() {
+		if(data == null) {
+			try {
+				wait();
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		byte[] result = data;
+		data = null;
+		notifyAll();
+		return result;
 	}
 }
