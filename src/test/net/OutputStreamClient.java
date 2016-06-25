@@ -5,13 +5,22 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class OutputStreamClient {
+	/**
+	 * サーバーポート
+	 */
 	private final static int SERVER_PORT = 65333;
+
 	/**
 	 * サーバホスト名
 	 */
 	private final static String SERVER_ADDRESS = "osamu-faith";
+
 	public static void main(String[] args) {
+		/**
+		 * サーバソケット
+		 */
 		Socket socket = null;
+
 		OutputStream os = null;
 		try {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
