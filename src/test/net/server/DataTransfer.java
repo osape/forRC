@@ -1,4 +1,4 @@
-package test.net;
+package test.net.server;
 
 public class DataTransfer {
 	/**
@@ -7,22 +7,26 @@ public class DataTransfer {
 	private byte[] data;
 
 	synchronized public void put(byte[] data) {
-		if(data != null) {
+		if(this.data != null) {
 			try {
+				System.out.println("putをブロック");
 				wait();
+				System.out.println("putのロックを解除");
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-		} else {
-			this.data = data;
-			notifyAll();
 		}
+		this.data = data;
+		notifyAll();
+		System.out.println("putのnotifyAll");
 	}
 
 	synchronized public byte[] get() {
 		if(data == null) {
 			try {
+				System.out.println("getをブロック");
 				wait();
+				System.out.println("getのロックを解除");
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -30,6 +34,7 @@ public class DataTransfer {
 		byte[] result = data;
 		data = null;
 		notifyAll();
+		System.out.println("getのnotifyAll");
 		return result;
 	}
 }

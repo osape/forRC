@@ -6,8 +6,6 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import test.net.DataTransfer;
-
 /**
  * 10回クライアントからのリクエストを受け付ける
  * 受信したデータをクライアントに送信する
@@ -62,8 +60,8 @@ public class InputServerThread extends Thread {
 				is = socket.getInputStream();
 				byte[] buf = new byte[100];
 				is.read(buf);
-				dt.put(buf);
 				System.out.println("クライアントからのデータ : " + buf[0]);
+				dt.put(buf);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

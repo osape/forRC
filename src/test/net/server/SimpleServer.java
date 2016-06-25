@@ -1,7 +1,5 @@
 package test.net.server;
 
-import test.net.DataTransfer;
-
 /**
  * サーバスレッドを開始する
  * @author Osamu Takahashi
