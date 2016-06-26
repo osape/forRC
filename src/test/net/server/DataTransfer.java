@@ -1,5 +1,7 @@
 package test.net.server;
 
+import java.util.ArrayList;
+
 public class DataTransfer {
 	/**
 	 * データを格納
@@ -35,7 +37,7 @@ public class DataTransfer {
 		receive.receive(data);
 	}
 
-	public byte[] get(int clients) {
-		return send.get(clients);
+	public byte[] get(int clients,ArrayList<Thread> childThreads) {
+		return send.get(clients,childThreads);
 	}
 }

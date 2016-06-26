@@ -3,6 +3,8 @@ package test.net.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * 10回クライアントからのリクエストを受け付ける
@@ -27,6 +29,11 @@ public class OutputServerThread extends Thread {
 	private int clients = 0;
 
 	/**
+	 * 子スレッド
+	 */
+	private ArrayList<Thread> childThreads;
+
+	/**
 	 * サーバーポートを設定する
 	 * @param sERVER_PORT サーバーポート
 	 */
@@ -34,6 +41,7 @@ public class OutputServerThread extends Thread {
 		super();
 		SERVER_PORT = sERVER_PORT;
 		this.dt = dt;
+		childThreads = new ArrayList<Thread>();
 	}
 
 	/**
@@ -51,6 +59,7 @@ public class OutputServerThread extends Thread {
 				clients++;
 				OutputServerChildThread osc = new OutputServerChildThread(socket, dt,this,socket.getLocalAddress().getHostName());
 				osc.start();
+				childThreads.add(osc);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -71,6 +80,35 @@ public class OutputServerThread extends Thread {
 
 	public void setClients(int clients) {
 		this.clients = clients;
+	}
+
+	/**
+	 * @param childThreads セットする childThreads
+	 */
+	public void setChildThreads(ArrayList<Thread> childThreads) {
+		this.childThreads = childThreads;
+	}
+
+	/**
+	 * @return childThreads
+	 */
+	public ArrayList<Thread> getChildThreads() {
+		System.out.println("getChildThreads");
+		HashSet<Thread> deathTh = new HashSet<Thread>();
+		synchronized (childThreads) {
+			System.out.println("synchronized : " + childThreads.size());
+			for(Thread th : childThreads) {
+				if(!th.isAlive()) {
+					deathTh.add(th);
+				}
+				State state = th.getState();
+				System.out.println(state.name());
+			}
+			for(Thread th : deathTh) {
+				childThreads.remove(th);
+			}
+		}
+		return childThreads;
 	}
 
 }

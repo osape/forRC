@@ -36,7 +36,7 @@ public class InputStreamClientThread extends Thread {
 		try {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			is = socket.getInputStream();
-			for(int i = 0;i < 10;i++) {
+			for(int i = 0;i < 1000;i++) {
 				byte[] buf = new byte[100];
 				is.read(buf);
 				System.out.println("サーバからのデータ : " + buf[0]);
