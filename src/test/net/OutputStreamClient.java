@@ -14,7 +14,7 @@ public class OutputStreamClient {
 	/**
 	 * サーバホスト名
 	 */
-	private final static String SERVER_ADDRESS = "osamu-faith";
+	private final static String SERVER_ADDRESS = "localhost";
 
 	public static void main(String[] args) {
 		Thread threadOutput = new OutputStreamClientThread(OUTPUT_SERVER_PORT, SERVER_ADDRESS);

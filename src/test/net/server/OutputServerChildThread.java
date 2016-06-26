@@ -44,12 +44,34 @@ public class OutputServerChildThread extends Thread {
 	@Override
 	public void run() {
 		OutputStream os = null;
+		int messageNo = dt.getMessagesSize() - 1;
 		try {
 			os = socket.getOutputStream();
-			System.out.println(os);
+			//System.out.println(os);
 			//socket.setSoTimeout(2000);
+			byte[] buf;
 			while(true) {
-				byte[] buf = dt.get(ost.getClients(),ost.getChildThreads());
+				int messageSize = dt.getMessagesSize();
+				if(messageNo < 1) {
+					while(true) {
+						if(dt.getMessagesSize() > 0) {
+							messageNo = 0;
+							break;
+						} else {
+							sleep(1000);
+						}
+					}
+				}
+				while(true) {
+					messageSize = dt.getMessagesSize();
+					if(messageSize - 1 >= messageNo) {
+						break;
+					} else {
+						sleep(1000);
+					}
+				}
+				buf = dt.get(messageNo);
+				messageNo++;
 				os.write(buf);
 				os.flush();
 				System.out.println("クライアントにデータを送信 : " + buf[0]);
@@ -58,8 +80,8 @@ public class OutputServerChildThread extends Thread {
 		} catch(IOException e) {
 			e.printStackTrace();
 			System.out.println(os);
-		//} catch(InterruptedException e) {
-			//e.printStackTrace();
+		} catch(InterruptedException e) {
+			e.printStackTrace();
 		} finally {
 			if(os != null) {
 				try {

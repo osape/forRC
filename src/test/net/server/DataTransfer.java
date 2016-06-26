@@ -9,23 +9,15 @@ public class DataTransfer {
 	private byte[] data;
 
 	/**
-	 * データ受信オブジェクト
+	 *
 	 */
-	private DataReceive receive;
-
-	/**
-	 * データ送信オブジェクト
-	 */
-	private DataSend send;
+	private ArrayList<byte[]> messages;
 
 	/**
 	 * 送受信オブジェクトの初期化
 	 */
 	public DataTransfer() {
-		receive = new DataReceive();
-		send = new DataSend();
-		receive.setSend(send);
-		send.setReceive(receive);
+		messages = new ArrayList<byte[]>();
 	}
 
 	/**
@@ -33,11 +25,19 @@ public class DataTransfer {
 	 * @param data
 	 */
 
-	public void put(byte[] data) {
-		receive.receive(data);
+	synchronized public void put(byte[] data) {
+		messages.add(data);
 	}
 
-	public byte[] get(int clients,ArrayList<Thread> childThreads) {
-		return send.get(clients,childThreads);
+	synchronized public byte[] get(int messageNo) {
+		return messages.get(messageNo);
+	}
+
+	public ArrayList<byte[]> getMessages() {
+		return messages;
+	}
+
+	public int getMessagesSize() {
+		return messages.size();
 	}
 }
