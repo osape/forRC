@@ -1,6 +1,8 @@
 package test.net;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -42,12 +44,19 @@ public class OutputStreamClientThread extends Thread {
 		Socket socket = null;
 
 		OutputStream os = null;
+		BufferedReader br = null;
+
 		try {
-			sleep(1000);
+			br = new BufferedReader(new InputStreamReader(System.in));
 			for(int i = 0;i < 100;i++) {
+				System.out.print("メッセージ入力 : ");
+				String input = br.readLine();
+
 				socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 				os = socket.getOutputStream();
-				os.write(i);
+				String message = socket.getInetAddress().getHostName() + " : " + i + " : " + input;
+				byte[] buf = message.getBytes("UTF-8");
+				os.write(buf);
 				os.flush();
 				os.close();
 				sleep(1000);
@@ -60,6 +69,14 @@ public class OutputStreamClientThread extends Thread {
 			if(os != null) {
 				try {
 					os.close();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if(br != null) {
+				try {
+					br.close();
 				} catch(IOException e) {
 					e.printStackTrace();
 				}

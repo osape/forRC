@@ -39,7 +39,8 @@ public class InputStreamClientThread extends Thread {
 			for(int i = 0;i < 1000;i++) {
 				byte[] buf = new byte[100];
 				is.read(buf);
-				System.out.println("サーバからのデータ : " + buf[0]);
+				String message = new String(buf,"UTF-8");
+				System.out.println("サーバからのデータ : " + message);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
