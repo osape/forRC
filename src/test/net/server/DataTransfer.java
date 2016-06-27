@@ -4,11 +4,6 @@ import java.util.ArrayList;
 
 public class DataTransfer {
 	/**
-	 * データを格納
-	 */
-	private byte[] data;
-
-	/**
 	 *
 	 */
 	private ArrayList<byte[]> messages;
@@ -22,9 +17,8 @@ public class DataTransfer {
 
 	/**
 	 *
-	 * @param data
+	 * @param data クライアントからのデータ
 	 */
-
 	synchronized public void put(byte[] data) {
 		messages.add(data);
 	}
