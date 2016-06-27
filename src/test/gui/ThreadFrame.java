@@ -8,7 +8,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class ThreadFrame extends JFrame {
+	/**
+	 * 受信メッセージ
+	 */
 	private JTextArea receiveMessage;
+
+	/**
+	 * 受信メッセージ
+	 */
 	private JTextArea sendMessage;
 
 	public ThreadFrame() {
