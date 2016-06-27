@@ -13,6 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.DefaultCaret;
 
+/**
+ * チャットクライアント用のフレーム
+ * @author osamu
+ *
+ */
 public class ChatFrame extends JFrame {
 	private JTextArea messageArea;
 	private JTextField inputArea;
