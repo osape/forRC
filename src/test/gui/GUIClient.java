@@ -46,7 +46,7 @@ public class GUIClient {
 
 		// サーバに送信するスレッドを起動
 		// 送信するデータを表示するテキストエリアのオブジェクトが必要
-		OutputStreamClientThread osct = new OutputStreamClientThread(OUTPUT_SERVER_PORT, SERVER_ADDRESS, recTa);
+		OutputStreamClientThread osct = new OutputStreamClientThread(OUTPUT_SERVER_PORT, SERVER_ADDRESS, senTa);
 		osct.start();
 
 	}

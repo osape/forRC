@@ -67,7 +67,7 @@ public class OutputServerChildThread extends Thread {
 				os.write(buf);
 				os.flush();
 				String message = new String(buf,"UTF-8");
-				System.out.println("クライアントにデータを送信 : " + message);
+				System.out.println("クライアントにデータを送信 : " + buf[0]);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

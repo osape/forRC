@@ -58,7 +58,7 @@ public class OutputStreamClientThread extends Thread {
 				os.write(i);
 				os.flush();
 				os.close();
-				jta.append(String.valueOf(i));
+				jta.append(String.valueOf(i) + "\n");
 				sleep(1000);
 			}
 		} catch(IOException e) {
