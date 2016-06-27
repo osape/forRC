@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import javax.swing.JTextArea;
+
 /**
  * クライアントから整数を定期的に出力
  *
@@ -22,13 +24,20 @@ public class OutputStreamClientThread extends Thread {
 	private final String SERVER_ADDRESS;
 
 	/**
+	 * 出力テキストエリア
+	 */
+	private JTextArea jta;
+
+	/**
 	 *
 	 * @param serverPort サーバポート
 	 * @param serverAddress サーバアドレス
+	 * @param jta メッセージの出力先
 	 */
-	public OutputStreamClientThread(int serverPort,String serverAddress) {
+	public OutputStreamClientThread(int serverPort,String serverAddress,JTextArea jta) {
 		SERVER_PORT = serverPort;
 		SERVER_ADDRESS = serverAddress;
+		this.jta = jta;
 	}
 
 	/**
@@ -49,6 +58,7 @@ public class OutputStreamClientThread extends Thread {
 				os.write(i);
 				os.flush();
 				os.close();
+				jta.append(String.valueOf(i));
 				sleep(1000);
 			}
 		} catch(IOException e) {
