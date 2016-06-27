@@ -39,7 +39,6 @@ public class InputServerChildThread extends Thread {
 			byte[] buf = new byte[100];
 			is = socket.getInputStream();
 			is.read(buf);
-			//System.out.println("クライアントからのデータ : " + buf[0]);
 			dt.put(buf);
 		} catch(IOException e) {
 			e.printStackTrace();
