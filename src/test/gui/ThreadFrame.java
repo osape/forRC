@@ -32,4 +32,12 @@ public class ThreadFrame extends JFrame {
 		pack();
 		setVisible(true);
 	}
+
+	public JTextArea getReceiveMessage() {
+		return receiveMessage;
+	}
+
+	public JTextArea getSendMessage() {
+		return sendMessage;
+	}
 }
