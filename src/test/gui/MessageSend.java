@@ -7,6 +7,12 @@ import javax.swing.JTextField;
 
 import test.net.OutputStreamClient;
 
+/**
+ * アクションリスナー
+ * アクションが発生するとサーバにメッセージを送信する
+ * @author osamu
+ *
+ */
 public class MessageSend implements ActionListener {
 	/**
 	 * メッセージ出力サーバーポート

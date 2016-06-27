@@ -2,6 +2,15 @@ package test.gui;
 
 import test.net.InputStreamClientThread;
 
+/**
+ * チャットクライアントの起動クラス
+ * ネットワーククライアントスレッドの起動
+ * フレームの表示
+ * アクションリスナーの追加
+ *
+ * @author osamu
+ *
+ */
 public class SimpleChatClient {
 	/**
 	 * メッセージ出力サーバーポート
