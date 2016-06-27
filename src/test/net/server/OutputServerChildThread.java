@@ -44,24 +44,16 @@ public class OutputServerChildThread extends Thread {
 	@Override
 	public void run() {
 		OutputStream os = null;
-		int messageNo = dt.getMessagesSize() - 1;
+
+		// メッセージ番号
+		// スレッド開始時は、メッセ―ジサイズ
+		int messageNo = dt.getMessagesSize();
+
 		try {
 			os = socket.getOutputStream();
-			//System.out.println(os);
-			//socket.setSoTimeout(2000);
 			byte[] buf;
+			int messageSize;
 			while(true) {
-				int messageSize = dt.getMessagesSize();
-				if(messageNo < 1) {
-					while(true) {
-						if(dt.getMessagesSize() > 0) {
-							messageNo = 0;
-							break;
-						} else {
-							sleep(1000);
-						}
-					}
-				}
 				while(true) {
 					messageSize = dt.getMessagesSize();
 					if(messageSize - 1 >= messageNo) {
@@ -76,7 +68,6 @@ public class OutputServerChildThread extends Thread {
 				os.flush();
 				String message = new String(buf,"UTF-8");
 				System.out.println("クライアントにデータを送信 : " + message);
-				//sleep(5000);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
