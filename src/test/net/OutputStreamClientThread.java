@@ -5,13 +5,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * キーボードから入力したメッセージをサーバに送信
- *
+ * クライアントから整数を定期的に出力
  *
  * @author Osamu Takahashi
  *
  */
-public class OutputStreamClient {
+public class OutputStreamClientThread extends Thread {
 	/**
 	 * サーバーポート
 	 */
@@ -20,32 +19,41 @@ public class OutputStreamClient {
 	/**
 	 * サーバホスト名
 	 */
-	private String SERVER_ADDRESS;
+	private final String SERVER_ADDRESS;
 
 	/**
 	 *
 	 * @param serverPort サーバポート
 	 * @param serverAddress サーバアドレス
 	 */
-	public OutputStreamClient(int serverPort,String serverAddress) {
+	public OutputStreamClientThread(int serverPort,String serverAddress) {
 		SERVER_PORT = serverPort;
 		SERVER_ADDRESS = serverAddress;
 	}
 
-
-	public void output(String message) {
+	/**
+	 * スレッドを開始した時に実行
+	 */
+	@Override
+	public void run() {
+		/**
+		 * サーバソケット
+		 */
 		Socket socket = null;
-		OutputStream os = null;
 
+		OutputStream os = null;
 		try {
-			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
-			os = socket.getOutputStream();
-			message = socket.getInetAddress().getHostName() + " : " + message;
-			byte[] buf = message.getBytes("UTF-8");
-			os.write(buf);
-			os.flush();
-			os.close();
+			for(int i = 0;i < 100;i++) {
+				socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
+				os = socket.getOutputStream();
+				os.write(i);
+				os.flush();
+				os.close();
+				sleep(1000);
+			}
 		} catch(IOException e) {
+			e.printStackTrace();
+		} catch(InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			if(os != null) {
@@ -55,6 +63,7 @@ public class OutputStreamClient {
 					e.printStackTrace();
 				}
 			}
+
 			if(socket != null) {
 				try {
 					socket.close();

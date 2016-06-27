@@ -22,7 +22,9 @@ public class InputServerChildThread extends Thread {
 	private DataTransfer dt;
 
 	/**
-	 * コンストラクタ
+	 * ソケットオブジェクトの取得
+	 * データトラスファーオブジェクトの取得
+	 *
 	 * @param socket ソケットオブジェクト
 	 * @param dt データランスファーオブジェクト
 	 */
