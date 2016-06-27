@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public class ThreadFrame extends JFrame {
 	/**
@@ -18,18 +19,32 @@ public class ThreadFrame extends JFrame {
 	private JTextArea sendMessage;
 
 	public ThreadFrame() {
+		setBounds(300,300,600,600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		receiveMessage = new JTextArea();
 		JScrollPane jscRec = new JScrollPane(receiveMessage);
 		sendMessage = new JTextArea();
 		JScrollPane jscSen = new JScrollPane(sendMessage);
 
+		DefaultCaret caret = (DefaultCaret)receiveMessage.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
+		caret = (DefaultCaret)sendMessage.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
 		Container container = getContentPane();
 		container.setLayout(new GridLayout(2, 1));
 		container.add(jscRec);
 		container.add(jscSen);
 
-		pack();
 		setVisible(true);
+	}
+
+	public JTextArea getReceiveMessage() {
+		return receiveMessage;
+	}
+
+	public JTextArea getSendMessage() {
+		return sendMessage;
 	}
 }

@@ -54,7 +54,7 @@ public class InputStreamClientThread extends Thread {
 				byte[] buf = new byte[100];
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
-				output.append(message + "\n");
+				output.append(buf[0] + "\n");
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
