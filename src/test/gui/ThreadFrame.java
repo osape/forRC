@@ -10,10 +10,13 @@ import javax.swing.JTextArea;
 public class ThreadFrame extends JFrame {
 	/**
 	 * 受信メッセージを表示
+	 * 受信メッセージ
 	 */
 	private JTextArea receiveMessage;
+
+
 	/**
-	 * 送信メッセージを表示
+	 * 受信メッセージ
 	 */
 	private JTextArea sendMessage;
 
