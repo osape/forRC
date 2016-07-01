@@ -1,10 +1,16 @@
 package test.net.client;
 
+import java.awt.Color;
+import java.awt.Insets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 /**
  * サーバからデータを読み込む
@@ -25,7 +31,7 @@ public class InputStreamClientThread extends Thread {
 	/**
 	 * 出力先
 	 */
-	JTextArea output;
+	JTextPane output;
 
 	/**
 	 *
@@ -33,7 +39,7 @@ public class InputStreamClientThread extends Thread {
 	 * @param sERVER_ADDRESS
 	 */
 
-	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS,JTextArea output) {
+	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS,JTextPane output) {
 		super();
 		SERVER_PORT = sERVER_PORT;
 		SERVER_ADDRESS = sERVER_ADDRESS;
@@ -51,13 +57,27 @@ public class InputStreamClientThread extends Thread {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			is = socket.getInputStream();
 			for(int i = 0;i < 1000;i++) {
+				SimpleAttributeSet sas = new SimpleAttributeSet();
+				StyleConstants.setLineSpacing(sas, 0.0f);
+				StyleConstants.setForeground(sas, Color.BLUE);
+
+				output.setParagraphAttributes(sas, true);
+				output.setMargin(new Insets(0, 0, 0, 0));
+				Document doc = output.getDocument();
+
 				byte[] buf = new byte[1000];
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
 				System.out.println(message);
 				//message = message.trim();
-				output.append(message);
-				output.append("\r\n");
+				//output.append(message);
+				//output.append("\r\n");
+
+				try {
+					doc.insertString(doc.getLength(), message + "\n", sas);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
 
 				//System.out.print(message);
 				//System.out.print("\n");

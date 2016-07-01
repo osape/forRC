@@ -8,23 +8,22 @@ import java.awt.HeadlessException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.DefaultCaret;
 
 public class ChatFrame extends JFrame {
-	private JTextArea messageArea;
+	private JTextPane messageArea;
 	private JTextField inputArea;
 	private JButton sendButton;
 	private JScrollPane scrollPane;
 	public ChatFrame(String title) throws HeadlessException {
 		super(title);
-		messageArea = new JTextArea(10,50);
+		messageArea = new JTextPane();
 		messageArea.setBorder(new EtchedBorder());
 		DefaultCaret caret = (DefaultCaret)messageArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-
 
 		scrollPane = new JScrollPane(messageArea);
 		scrollPane.setPreferredSize(new Dimension(50, 10));
@@ -40,13 +39,13 @@ public class ChatFrame extends JFrame {
 	/**
 	 * @return messageArea
 	 */
-	public JTextArea getMessageArea() {
+	public JTextPane getMessageArea() {
 		return messageArea;
 	}
 	/**
 	 * @param messageArea セットする messageArea
 	 */
-	public void setMessageArea(JTextArea messageArea) {
+	public void setMessageArea(JTextPane messageArea) {
 		this.messageArea = messageArea;
 	}
 	/**
