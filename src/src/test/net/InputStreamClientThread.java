@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-import javax.swing.JTextArea;
-
 /**
  * サーバからデータを読み込む
  * @author Osamu Takahashi
@@ -23,21 +21,15 @@ public class InputStreamClientThread extends Thread {
 	private final String SERVER_ADDRESS;
 
 	/**
-	 * 出力先
-	 */
-	JTextArea output;
-
-	/**
 	 *
 	 * @param sERVER_PORT
 	 * @param sERVER_ADDRESS
 	 */
 
-	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS,JTextArea output) {
+	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS) {
 		super();
 		SERVER_PORT = sERVER_PORT;
 		SERVER_ADDRESS = sERVER_ADDRESS;
-		this.output = output;
 	}
 
 	/**
@@ -54,7 +46,7 @@ public class InputStreamClientThread extends Thread {
 				byte[] buf = new byte[100];
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
-				output.append(message + "\n");
+				System.out.println(message);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

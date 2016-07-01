@@ -1,9 +1,5 @@
 package test.net;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-
 /**
  * キーボードから入力したメッセージをサーバに送信
  *
@@ -15,54 +11,24 @@ public class OutputStreamClient {
 	/**
 	 * サーバーポート
 	 */
-	private final int SERVER_PORT;
+	private final static int OUTPUT_SERVER_PORT = 65333;
+
+	/**
+	 * サーバーポート
+	 */
+	private final static int INPUT_SERVER_PORT = 65334;
 
 	/**
 	 * サーバホスト名
 	 */
-	private String SERVER_ADDRESS;
+	private final static String SERVER_ADDRESS = "localhost";
 
-	/**
-	 *
-	 * @param serverPort サーバポート
-	 * @param serverAddress サーバアドレス
-	 */
-	public OutputStreamClient(int serverPort,String serverAddress) {
-		SERVER_PORT = serverPort;
-		SERVER_ADDRESS = serverAddress;
-	}
+	public static void main(String[] args) {
+		Thread threadOutput = new OutputStreamClientThread(OUTPUT_SERVER_PORT, SERVER_ADDRESS);
+		threadOutput.start();
 
-
-	public void output(String message) {
-		Socket socket = null;
-		OutputStream os = null;
-
-		try {
-			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
-			os = socket.getOutputStream();
-			message = socket.getInetAddress().getHostName() + " : " + message;
-			byte[] buf = message.getBytes("UTF-8");
-			os.write(buf);
-			os.flush();
-			os.close();
-		} catch(IOException e) {
-			e.printStackTrace();
-		} finally {
-			if(os != null) {
-				try {
-					os.close();
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(socket != null) {
-				try {
-					socket.close();
-				} catch(IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		Thread threadInput = new InputStreamClientThread(INPUT_SERVER_PORT,SERVER_ADDRESS);
+		threadInput.start();
 	}
 
 }
