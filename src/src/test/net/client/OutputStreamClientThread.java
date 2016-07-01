@@ -7,7 +7,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * クライアントから整数を定期的に出力
+ * コンソール用のサーバへ文字列を送信するクライアント
+ * クライアントからキーボード入力した文字列をサーバに送信
  *
  * @author Osamu Takahashi
  *
