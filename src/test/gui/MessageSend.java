@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import test.net.OutputStreamClient;
+import test.net.client.OutputStreamClient;
 
 public class MessageSend implements ActionListener {
 	/**

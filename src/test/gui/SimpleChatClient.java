@@ -1,6 +1,6 @@
 package test.gui;
 
-import test.net.InputStreamClientThread;
+import test.net.client.InputStreamClientThread;
 
 public class SimpleChatClient {
 	/**

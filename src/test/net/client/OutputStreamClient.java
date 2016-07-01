@@ -1,4 +1,4 @@
-package test.net;
+package test.net.client;
 
 import java.io.IOException;
 import java.io.OutputStream;
