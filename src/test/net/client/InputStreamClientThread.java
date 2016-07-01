@@ -59,18 +59,8 @@ public class InputStreamClientThread extends Thread {
 			boolean colorFlag = true;
 			for(int i = 0;i < 1000;i++) {
 				SimpleAttributeSet sas = new SimpleAttributeSet();
-				//StyleConstants.setLineSpacing(sas, 0.0f);
+				StyleConstants.setLineSpacing(sas, 0.0f);
 				
-				colorFlag = !colorFlag;
-				if(colorFlag) {
-					StyleConstants.setForeground(sas, Color.BLUE);
-					StyleConstants.setSpaceAbove(sas, 0.5F);
-					StyleConstants.setSpaceBelow(sas, 1F);
-				} else {
-					StyleConstants.setForeground(sas, Color.RED);
-					StyleConstants.setSpaceAbove(sas, 5F);
-				}
-
 				output.setParagraphAttributes(sas, true);
 				output.setMargin(new Insets(0, 0, 0, 0));
 				Document doc = output.getDocument();
