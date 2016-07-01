@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.net.Socket;
 
 /**
- * サーバからデータを読み込む
+ * サーバからデータを読み込むクライアント
  * @author Osamu Takahashi
  *
  */
@@ -21,11 +21,10 @@ public class InputStreamClientThread extends Thread {
 	private final String SERVER_ADDRESS;
 
 	/**
-	 *
-	 * @param sERVER_PORT
-	 * @param sERVER_ADDRESS
+	 * サーバポートとサーバアドレスを取得する
+	 * @param sERVER_PORT サーバポート
+	 * @param sERVER_ADDRESS サーバアドレス
 	 */
-
 	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS) {
 		super();
 		SERVER_PORT = sERVER_PORT;
@@ -33,7 +32,7 @@ public class InputStreamClientThread extends Thread {
 	}
 
 	/**
-	 * スレッドを開始
+	 * サーバからデータを読み込んで表示する。
 	 */
 	@Override
 	public void run() {
