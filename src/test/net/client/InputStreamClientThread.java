@@ -31,7 +31,7 @@ public class InputStreamClientThread extends Thread {
 	/**
 	 * 出力先
 	 */
-	JTextPane output;
+	private JTextPane output;
 
 	/**
 	 *
@@ -56,10 +56,20 @@ public class InputStreamClientThread extends Thread {
 		try {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			is = socket.getInputStream();
+			boolean colorFlag = true;
 			for(int i = 0;i < 1000;i++) {
 				SimpleAttributeSet sas = new SimpleAttributeSet();
-				StyleConstants.setLineSpacing(sas, 0.0f);
-				StyleConstants.setForeground(sas, Color.BLUE);
+				//StyleConstants.setLineSpacing(sas, 0.0f);
+				
+				colorFlag = !colorFlag;
+				if(colorFlag) {
+					StyleConstants.setForeground(sas, Color.BLUE);
+					StyleConstants.setSpaceAbove(sas, 0.5F);
+					StyleConstants.setSpaceBelow(sas, 1F);
+				} else {
+					StyleConstants.setForeground(sas, Color.RED);
+					StyleConstants.setSpaceAbove(sas, 5F);
+				}
 
 				output.setParagraphAttributes(sas, true);
 				output.setMargin(new Insets(0, 0, 0, 0));
@@ -69,18 +79,13 @@ public class InputStreamClientThread extends Thread {
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
 				System.out.println(message);
-				//message = message.trim();
-				//output.append(message);
-				//output.append("\r\n");
-
+				
 				try {
+					message = message.trim();
 					doc.insertString(doc.getLength(), message + "\n", sas);
 				} catch (BadLocationException e) {
 					e.printStackTrace();
 				}
-
-				//System.out.print(message);
-				//System.out.print("\n");
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
