@@ -1,4 +1,4 @@
-package test.net;
+package test.net.client;
 
 /**
  * キーボードから入力したメッセージをサーバに送信

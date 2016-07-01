@@ -1,4 +1,4 @@
-package test.net;
+package test.net.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
