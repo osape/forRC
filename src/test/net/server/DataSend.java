@@ -58,6 +58,12 @@ public class DataSend {
 	}
 
 	synchronized public byte[] get(int clients,ArrayList<Thread> childThreads) {
+		/**
+		 * データを受信するためのスレッドがすべて揃うまで待つように変更する必要がある
+		 * スレッドグループを作成し管理する
+		 *
+		 */
+
 		this.childThreads.add(Thread.currentThread());
 
 		for(Thread th : this.childThreads) {

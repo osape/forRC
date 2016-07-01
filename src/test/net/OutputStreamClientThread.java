@@ -38,31 +38,34 @@ public class OutputStreamClientThread extends Thread {
 	 */
 	@Override
 	public void run() {
+		int msgNo = 1;
 		try (
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				Socket socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			)
 		{
-			for(int i = 0;i < 100;i++) {
+			while(true) {
 				System.out.print("メッセージ入力 : ");
 				String input = br.readLine();
-				try (
-						Socket socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
-						OutputStream os = socket.getOutputStream();
-					)
-				{
-					String message = socket.getInetAddress().getHostName() + " : " + i + " : " + input;
-					byte[] buf = message.getBytes("UTF-8");
+				String message = socket.getInetAddress().getHostName() + " : " + msgNo + " : " + input;
+				if(message.equals("\\q")) {
+					break;
+				}
+				byte[] buf = message.getBytes("UTF-8");
+
+				try (OutputStream os = socket.getOutputStream()) {
 					os.write(buf);
 					os.flush();
-					os.close();
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
-				sleep(1000);
+				try {
+					sleep(1000);
+				} catch(InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch(IOException e) {
-			e.printStackTrace();
-		} catch(InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
