@@ -3,6 +3,8 @@ package test.net.server;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 個々のクライアントにデータを書き込む処理を行うスレッドクラス
@@ -44,24 +46,17 @@ public class OutputServerChildThread extends Thread {
 	@Override
 	public void run() {
 		OutputStream os = null;
-		int messageNo = dt.getMessagesSize() - 1;
+		String pattern = "yyyy/MM/dd hh:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+		int messageNo = dt.getMessagesSize();
 		try {
 			os = socket.getOutputStream();
 			//System.out.println(os);
 			//socket.setSoTimeout(2000);
 			byte[] buf;
 			while(true) {
-				int messageSize = dt.getMessagesSize();
-				if(messageNo < 1) {
-					while(true) {
-						if(dt.getMessagesSize() > 0) {
-							messageNo = 0;
-							break;
-						} else {
-							sleep(1000);
-						}
-					}
-				}
+				int messageSize;
 				while(true) {
 					messageSize = dt.getMessagesSize();
 					if(messageSize - 1 >= messageNo) {
@@ -71,11 +66,15 @@ public class OutputServerChildThread extends Thread {
 					}
 				}
 				buf = dt.get(messageNo);
+				String message = new String(buf,"UTF-8");
+				String formatDate = sdf.format(new Date());
+				message = formatDate + ":" + message;
+				buf = message.getBytes("UTF-8");
+				System.out.println(buf.length);
 				messageNo++;
 				os.write(buf);
 				os.flush();
-				System.out.println("クライアントにデータを送信 : " + buf[0]);
-				//sleep(5000);
+				System.out.println("クライアントにデータを送信 : " + message);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

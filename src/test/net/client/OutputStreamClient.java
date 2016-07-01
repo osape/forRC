@@ -40,7 +40,7 @@ public class OutputStreamClient {
 		try {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			os = socket.getOutputStream();
-			message = socket.getInetAddress().getHostName() + " : " + message;
+			message = socket.getInetAddress().getHostName() + ":" + message;
 			byte[] buf = message.getBytes("UTF-8");
 			os.write(buf);
 			os.flush();

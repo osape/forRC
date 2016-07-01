@@ -25,6 +25,7 @@ public class ChatFrame extends JFrame {
 		DefaultCaret caret = (DefaultCaret)messageArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
+
 		scrollPane = new JScrollPane(messageArea);
 		scrollPane.setPreferredSize(new Dimension(50, 10));
 		inputArea = new JTextField();

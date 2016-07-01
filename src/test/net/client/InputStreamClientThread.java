@@ -51,10 +51,16 @@ public class InputStreamClientThread extends Thread {
 			socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			is = socket.getInputStream();
 			for(int i = 0;i < 1000;i++) {
-				byte[] buf = new byte[100];
+				byte[] buf = new byte[1000];
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
-				output.append(message + "\n");
+				System.out.println(message);
+				//message = message.trim();
+				output.append(message);
+				output.append("\r\n");
+
+				//System.out.print(message);
+				//System.out.print("\n");
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
