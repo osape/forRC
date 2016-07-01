@@ -16,7 +16,7 @@ public class SimpleChatClient {
 	/**
 	 * サーバホスト名
 	 */
-	private final static String SERVER_ADDRESS = "localhost";
+	private final static String SERVER_ADDRESS = "192.168.31.7";
 
 	public static void main(String[] args) {
 		ChatFrame cf = new ChatFrame("チャットクライアント");
