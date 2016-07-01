@@ -1,13 +1,13 @@
 package test.net.server;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 10回クライアントからのリクエストを受け付ける
- * 受信したデータをクライアントに送信する
+ * クライアントからのリクエストを受け付ける
+ * クライアントからデータを受信するための子スレッドを開始する
+ *
  * @author Osamu Takahashi
  *
  */
@@ -44,12 +44,12 @@ public class InputServerThread extends Thread {
 
 	/**
 	 * スレッドを開始
+	 * 子送信サーバスレッドを開始する。
 	 */
 	@Override
 	public void run() {
 		ServerSocket serverSocket = null;
 		Socket socket = null;
-		InputStream is = null;
 		try {
 			serverSocket = new ServerSocket(SERVER_PORT);
 			while(true) {
@@ -60,16 +60,17 @@ public class InputServerThread extends Thread {
 		} catch(IOException e) {
 			e.printStackTrace();
 		} finally {
-			if(is != null) {
+			if(socket != null) {
 				try {
-					is.close();
+					socket.close();
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
 			}
-			if(socket != null) {
+
+			if(serverSocket != null) {
 				try {
-					socket.close();
+					serverSocket.close();
 				} catch(IOException e) {
 					e.printStackTrace();
 				}

@@ -6,6 +6,7 @@ import java.net.Socket;
 
 /**
  * サーバからデータを読み込むクライアント
+ * コンソールにメッセージを出力する
  * @author Osamu Takahashi
  *
  */

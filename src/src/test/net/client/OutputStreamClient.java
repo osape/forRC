@@ -1,8 +1,8 @@
 package test.net.client;
 
 /**
+ * コンソールを利用したクライアント
  * キーボードから入力したメッセージをサーバに送信
- *
  *
  * @author Osamu Takahashi
  *
