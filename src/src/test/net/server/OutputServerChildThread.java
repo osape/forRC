@@ -63,10 +63,12 @@ public class OutputServerChildThread extends Thread {
 					}
 				}
 				buf = dt.get(messageNo);
+				String message = new String(buf,"UTF-8");
+				message = messageNo + ":" + message;
+				buf = message.getBytes("UTF-8");
 				messageNo++;
 				os.write(buf);
 				os.flush();
-				String message = new String(buf,"UTF-8");
 				System.out.println("クライアントにデータを送信 : " + message);
 			}
 		} catch(IOException e) {

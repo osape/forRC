@@ -41,23 +41,32 @@ public class OutputStreamClientThread extends Thread {
 		int msgNo = 1;
 		try (
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				Socket socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 			)
 		{
 			while(true) {
+				Socket socket = new Socket(SERVER_ADDRESS,SERVER_PORT);
 				System.out.print("メッセージ入力 : ");
 				String input = br.readLine();
-				String message = socket.getInetAddress().getHostName() + " : " + msgNo + " : " + input;
+				String message = socket.getInetAddress().getHostName() + ":" + input;
 				if(message.equals("\\q")) {
 					break;
 				}
 				byte[] buf = message.getBytes("UTF-8");
 
-				try (OutputStream os = socket.getOutputStream()) {
+				OutputStream os = socket.getOutputStream();
+				try {
 					os.write(buf);
 					os.flush();
 				} catch(IOException e) {
 					e.printStackTrace();
+				} finally {
+					if(os != null) {
+						try {
+							os.close();
+						} catch(IOException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 				try {
 					sleep(1000);
