@@ -34,8 +34,9 @@ public class InputStreamClientThread extends Thread {
 
 	/**
 	 *
-	 * @param sERVER_PORT
-	 * @param sERVER_ADDRESS
+	 * @param sERVER_PORT Server Port
+	 * @param sERVER_ADDRESS Server Address
+	 * @param output output object
 	 */
 
 	public InputStreamClientThread(int sERVER_PORT, String sERVER_ADDRESS,JTextPane output) {

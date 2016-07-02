@@ -22,7 +22,7 @@ public class DataTransfer {
 
 	/**
 	 *
-	 * @param data
+	 * @param data message
 	 */
 
 	synchronized public void put(byte[] data) {
