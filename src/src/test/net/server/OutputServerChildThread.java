@@ -32,6 +32,8 @@ public class OutputServerChildThread extends Thread {
 	 * ソケットとデータトランスファーオブジェクトを初期化
 	 * @param socket ソケット
 	 * @param dt データトランスファーオブジェクト
+	 * @param ost parent thread
+	 * @param name thread name
 	 */
 	public OutputServerChildThread(Socket socket,DataTransfer dt,OutputServerThread ost,String name) {
 		super(name);

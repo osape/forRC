@@ -36,6 +36,7 @@ public class OutputServerThread extends Thread {
 	/**
 	 * サーバーポートを設定する
 	 * @param sERVER_PORT サーバーポート
+	 * @param dt datatransfer object
 	 */
 	public OutputServerThread(int sERVER_PORT,DataTransfer dt) {
 		super();
