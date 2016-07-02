@@ -2,6 +2,12 @@ package test.net.server;
 
 import java.util.ArrayList;
 
+/**
+ * between threds data transfer
+ *
+ * @author osamu
+ *
+ */
 public class DataTransfer {
 	/**
 	 * データを格納
