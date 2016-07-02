@@ -1,4 +1,4 @@
-package test.net.client;
+package src.test.net.client;
 
 import java.awt.Color;
 import java.awt.Insets;

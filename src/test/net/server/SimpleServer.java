@@ -1,4 +1,4 @@
-package test.net.server;
+package src.test.net.server;
 
 /**
  * サーバスレッドを開始する

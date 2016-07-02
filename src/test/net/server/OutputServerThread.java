@@ -1,4 +1,4 @@
-package test.net.server;
+package src.test.net.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
