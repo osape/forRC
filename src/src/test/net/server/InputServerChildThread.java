@@ -31,6 +31,9 @@ public class InputServerChildThread extends Thread {
 		this.dt = dt;
 	}
 
+	/**
+	 * read client message
+	 */
 	@Override
 	public void run() {
 		InputStream is = null;
