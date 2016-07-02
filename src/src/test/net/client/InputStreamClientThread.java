@@ -47,7 +47,7 @@ public class InputStreamClientThread extends Thread {
 	}
 
 	/**
-	 * スレッドを開始
+	 * メッセージを出力する
 	 */
 	@Override
 	public void run() {
