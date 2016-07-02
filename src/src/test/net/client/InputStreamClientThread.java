@@ -1,6 +1,5 @@
-package src.test.net.client;
+package test.net.client;
 
-import java.awt.Color;
 import java.awt.Insets;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +59,7 @@ public class InputStreamClientThread extends Thread {
 			for(int i = 0;i < 1000;i++) {
 				SimpleAttributeSet sas = new SimpleAttributeSet();
 				StyleConstants.setLineSpacing(sas, 0.0f);
-				
+
 				output.setParagraphAttributes(sas, true);
 				output.setMargin(new Insets(0, 0, 0, 0));
 				Document doc = output.getDocument();
@@ -69,7 +68,7 @@ public class InputStreamClientThread extends Thread {
 				is.read(buf);
 				String message = new String(buf,"UTF-8");
 				System.out.println(message);
-				
+
 				try {
 					message = message.trim();
 					doc.insertString(doc.getLength(), message + "\n", sas);
